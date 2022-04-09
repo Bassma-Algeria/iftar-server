@@ -4,9 +4,8 @@
   "description": "the REST server of iftar app",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index",
+    "start": "node build/index",
     "dev": "nodemon src/index",
-    "start:prod": "node dist/src/index",
     "build": "tsc -p .",
     "test:acceptance": "mocha -r ts-node/register 'tests/UseCases/**/*.test.ts'",
     "test:domain": "mocha -r ts-node/register 'tests/Domain/**/*.test.ts'",
