@@ -9,7 +9,7 @@ import { ownersPersistence } from "../../src/Ports/DrivenPorts/Persistence/Resta
 
 import { startApp } from "../../src/Adapters/DriverAdapters/REST";
 
-describe("Happy Path", () => {
+describe("Sad Path", () => {
   let userToken: string;
 
   const ownerInfo = getResturantOwnerInfo();

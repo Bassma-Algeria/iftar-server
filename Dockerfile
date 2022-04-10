@@ -1,18 +1,31 @@
-FROM node:latest
+# Build Stage 1
+# This build created a staging docker image
+#
+FROM node:latest as appBuild
+
 WORKDIR /home/app
+
 COPY package.json ./
 COPY tsconfig.json ./
 COPY src ./src
-RUN ls -a
+
 RUN npm install
-RUN npm run build
+RUN npm run build 
 
 
+# Build Stage 2
+# This build takes the production build from staging build
+#
 FROM node:latest
+
 WORKDIR /home/app
+
 COPY package.json ./
+COPY --from=appBuild /home/app/build .
+
 RUN npm install --only=production
-COPY --from=0 /build .
 RUN npm install pm2 -g
-EXPOSE 80
+
+EXPOSE 5000
+
 CMD ["pm2-runtime","index.js"]
