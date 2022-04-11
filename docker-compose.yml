@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5000:5000
+    environment:
+      - JWT_SECRET_KEY=<YOUR_JWT_SECRET_KEY>
+      - MONGO_DB_URI=mongodb://admin:password@mongo-db/iftar-db?authSource=admin
+      - CLOUDINARY_URL=<YOUR_CLOUDINARY_URL>
+      - NODE_ENV=DEV
+    volumes:
+      - ./src:/home/app/src
+      - /home/app/node_modules
 
   mongo-db:
     image: mongo
@@ -26,3 +40,4 @@ services:
 volumes:
   mongo-data:
     driver: local
+

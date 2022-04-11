@@ -1,7 +1,7 @@
 # Build Stage 1
 # This build created a staging docker image
 #
-FROM node:latest as appBuild
+FROM node:16.14-alpine as appBuild
 
 WORKDIR /home/app
 
@@ -16,7 +16,7 @@ RUN npm run build
 # Build Stage 2
 # This build takes the production build from staging build
 #
-FROM node:latest
+FROM node:16.14-alpine
 
 WORKDIR /home/app
 
