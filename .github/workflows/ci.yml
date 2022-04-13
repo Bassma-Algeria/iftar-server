@@ -9,16 +9,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout Repo
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      -
+        name: Checkout 
+        uses: actions/checkout@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          node-version: 16.14.0
-          cache: "npm  "
-      - name: install dependecies
-        run: npm install
-      - name: setup test envirement
-        run: docker-compose -f docker-compose.test.yml up
-      - name: run tests
-        run: npm test
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iftar-server:latest
