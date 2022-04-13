@@ -1,0 +1,22 @@
+name: Test CI
+
+on:
+  push:
+    branches: 
+      - "master"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/node-setup@v3
+        with:
+          node-version: 16.14.0
+          cache: "npm  "
+      - name: install dependecies
+        run: npm install
+      - name: run tests
+        run: npm test
