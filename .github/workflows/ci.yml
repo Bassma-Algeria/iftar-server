@@ -18,5 +18,7 @@ jobs:
           cache: "npm  "
       - name: install dependecies
         run: npm install
+      - name: setup test envirement
+        run: docker-compose -f docker-compose.test.yml up
       - name: run tests
         run: npm test
