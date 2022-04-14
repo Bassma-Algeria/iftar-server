@@ -21,11 +21,13 @@ const startExpressServer = async () => {
 
   const PORT: number | string = process.env.PORT || 5000;
 
-  await connectToMongo();
+  const db = await connectToMongo();
 
-  return app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`server is listening on post ${PORT}`);
   });
+
+  return { db, server };
 };
 
 export { startExpressServer };
