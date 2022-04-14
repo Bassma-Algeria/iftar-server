@@ -14,12 +14,9 @@
     "test:e2e": "cross-env NODE_ENV=TEST_E2E mocha -r ts-node/register  --timeout 10000 'tests/e2e/**/*.test.ts'",
     "test": "npm run test:domain && npm run test:contract && npm run test:acceptance && npm run test:infrastructure && npm run test:e2e"
   },
-  "mocha": {
-    "env": "dotenv_config_path=./.env.test"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Bassma-Algeria/Iftar-app.git"
+    "url": "https://github.com/Bassma-Algeria/iftar-server.git"
   },
   "keywords": [
     "api",
@@ -31,16 +28,15 @@
   "author": "Bassma",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Bassma-Algeria/Iftar-app/issues"
+    "url": "https://github.com/Bassma-Algeria/iftar-server/issues"
   },
-  "homepage": "https://github.com/Bassma-Algeria/Iftar-app#readme",
+  "homepage": "https://github.com/Bassma-Algeria/iftar-server#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cloudinary": "^1.29.0",
     "cors": "^2.8.5",
-    "deep-equal-in-any-order": "^1.1.15",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "faker": "^5.5.3",
@@ -64,6 +60,7 @@
     "@types/morgan": "^1.9.3",
     "@types/sinon": "^10.0.11",
     "@types/uuid": "^8.3.4",
+    "deep-equal-in-any-order": "^1.1.15",
     "chai-as-promised": "^7.1.1",
     "chai-exclude": "^2.1.0",
     "cross-env": "^7.0.3",
