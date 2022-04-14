@@ -16,15 +16,19 @@ describe("Sad Path", () => {
   const restaurantInfo = getRestaurantInfo();
 
   let server: any;
+  let db: any;
 
   before(async () => {
-    server = await startApp();
+    const { server: theServer, db: theDB } = await startApp();
+    server = theServer;
+    db = theDB;
   });
 
   after(async () => {
     await restaurantsPersistence.deleteAll();
     await ownersPersistence.deleteAll();
     await server.close();
+    await db.disconnect();
   });
 
   it("new restaurant owner try to open an account with a used email, or a used phone number and get an error message", (done) => {
