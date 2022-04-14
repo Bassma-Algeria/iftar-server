@@ -10,7 +10,7 @@
     "test:acceptance": "mocha -r ts-node/register 'tests/UseCases/**/*.test.ts'",
     "test:domain": "mocha -r ts-node/register 'tests/Domain/**/*.test.ts'",
     "test:contract": "mocha -r ts-node/register 'tests/Adapters/**/*.test.ts'",
-    "test:infrastructure": "mocha -r ts-node/register --timeout 5000 'tests/infrastructure/**/*.test.ts'",
+    "test:infrastructure": "mocha -r ts-node/register --timeout 5000 'tests/Infrastructure/**/*.test.ts'",
     "test:e2e": "cross-env NODE_ENV=TEST_E2E mocha -r ts-node/register  --timeout 10000 'tests/e2e/**/*.test.ts'",
     "test": "npm run test:domain && npm run test:contract && npm run test:acceptance && npm run test:infrastructure && npm run test:e2e"
   },
