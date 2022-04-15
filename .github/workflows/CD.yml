@@ -1,4 +1,4 @@
-name: Build, Dockerize and Push to Docker Hub
+name: Build, Dockerize, Push to Docker Hub And Deploy to ACI
 
 on:
   push:

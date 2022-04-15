@@ -20,6 +20,9 @@ FROM node:16.14-alpine
 
 WORKDIR /home/app
 
+RUN chown -R node:node /home
+USER node
+
 COPY package.json ./
 
 RUN npm install --only=production
