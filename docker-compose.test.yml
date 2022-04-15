@@ -1,3 +1,5 @@
+# To run the Infrastructure and E2E tests
+
 version: '3'
 
 services:

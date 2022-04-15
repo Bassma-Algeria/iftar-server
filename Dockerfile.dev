@@ -2,6 +2,9 @@ FROM node:16.14-alpine
 
 WORKDIR /home/app
 
+RUN chown -R node:node /home/app
+USER node
+
 COPY package.json ./
 COPY tsconfig.json ./
 
