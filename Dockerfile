@@ -18,9 +18,12 @@ RUN npm run build
 #
 FROM node:16.14-alpine
 
+
+RUN mkdir /home/app && mkdir /usr/local/lib/node_modules  
+
 WORKDIR /home/app
 
-RUN chown -R node:node /home
+RUN chown -R node:node /home/app  /usr/local/lib/node_modules
 USER node
 
 COPY package.json ./
@@ -30,6 +33,10 @@ RUN npm install pm2 -g
 
 COPY --from=appBuild /home/app/build .
 
-EXPOSE 5000
+# Set the privileges for our built app executable to run on privileged ports
+RUN apk add --no-cache libcap
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
+
+EXPOSE 80
 
 CMD ["pm2-runtime","index.js"]
