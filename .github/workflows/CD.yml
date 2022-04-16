@@ -98,5 +98,5 @@ jobs:
           location: 'east us'
           registry-username: ${{ secrets.ACR_USERNAME }}
           registry-password: ${{ secrets.ACR_PASSWORD }}
-          secure-environment-variables: JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }} NODE_ENV=PROD
+          secure-environment-variables: JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }}
 

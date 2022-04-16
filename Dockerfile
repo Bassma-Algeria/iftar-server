@@ -34,6 +34,8 @@ RUN npm install -g pm2
 
 COPY --from=appBuild /home/app/build .
 
+ENV PORT=80 NODE_ENV=PROD
+
 EXPOSE 80
 
 CMD ["pm2-runtime", "index.js"]
