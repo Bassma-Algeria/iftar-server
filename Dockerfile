@@ -24,7 +24,7 @@ RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 WORKDIR /home/app
 
-RUN mkdir /usr/local/bin/pm2 && chown -R node:node /home/app /usr/local/lib/node_modules /usr/local/bin/pm2 && chown -R u+rwx /home/app /usr/local/lib/node_modules /usr/local/bin/pm2
+RUN mkdir /usr/local/bin/pm2 && chown -R node:node +rwx /home/app /usr/local/lib/node_modules /usr/local/bin/pm2
 USER node
 
 COPY package.json ./
