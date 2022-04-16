@@ -30,7 +30,7 @@ jobs:
         run: npm test
 
   build:
-    name: Build the App, Dockerize it and Push the Image to ACR
+    name: Build And Push to ACR
     runs-on: ubuntu-latest
     needs: test
     steps:
