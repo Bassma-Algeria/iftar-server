@@ -9,7 +9,8 @@ on:
       - "master"
 
 jobs:
-  Run-Tests:
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       -
