@@ -24,18 +24,16 @@ RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 WORKDIR /home/app
 
-RUN mkdir /usr/local/bin/pm2
-RUN chown -R node:node /home/app /usr/local/lib/node_modules /usr/local/bin/pm2
-RUN chmod -R 770 /home/app /usr/local/lib/node_modules /usr/local/bin/pm2
+RUN chown -R node:node /home/app /usr/local/lib/node_modules /usr/local/bin
 USER node
 
 COPY package.json ./
 
 RUN npm install --only=production
-RUN npm install --force pm2 -g
+RUN npm install -g pm2
 
 COPY --from=appBuild /home/app/build .
 
 EXPOSE 80
 
-CMD ["pm2-runtime","index.js"]
+CMD ["pm2-runtime", "index.js"]
