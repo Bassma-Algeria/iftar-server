@@ -96,7 +96,8 @@ jobs:
           dns-name-label: iftar-server
           image: iftar.azurecr.io/iftar-server:${{ steps.package-version.outputs.current-version }}
           location: 'east us'
+          ports: 80
           registry-username: ${{ secrets.ACR_USERNAME }}
           registry-password: ${{ secrets.ACR_PASSWORD }}
-          secure-environment-variables: JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }} NODE_ENV=PROD
+          secure-environment-variables: JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }}
 
