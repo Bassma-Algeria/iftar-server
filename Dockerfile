@@ -20,7 +20,7 @@ FROM node:16.14-alpine
 
 WORKDIR /home/app
 
-RUN chown -R node:node /home/app  /usr/local/lib/node_modules
+RUN mkdir /usr/local/bin/pm2 && chown -R node:node /home/app  /usr/local/lib/node_modules /usr/local/bin/pm2
 USER node
 
 COPY package.json ./
