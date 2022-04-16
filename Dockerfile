@@ -18,21 +18,21 @@ RUN npm run build
 #
 FROM node:16.14-alpine
 
+# Set the privileges for our built app executable to run on privileged ports
+RUN apk add --no-cache libcap
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
+
 WORKDIR /home/app
 
-RUN mkdir /usr/local/bin/pm2 && chown -R node:node /home/app  /usr/local/lib/node_modules /usr/local/bin/pm2
+RUN mkdir /usr/local/bin/pm2 && chown -R node:node /home/app /usr/local/lib/node_modules /usr/local/bin/pm2
 USER node
 
 COPY package.json ./
 
 RUN npm install --only=production
-RUN npm install pm2 -g
+RUN npm install --force pm2 -g
 
 COPY --from=appBuild /home/app/build .
-
-# Set the privileges for our built app executable to run on privileged ports
-RUN apk add --no-cache libcap
-RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 EXPOSE 80
 
