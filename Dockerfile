@@ -19,7 +19,7 @@ RUN npm run build
 FROM node:16.14-alpine
 
 # Set the privileges for our built app executable to run on privileged ports
-RUN apk add --no-cache libcap2-bin
+RUN apk add --no-cache libcap
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node
 
 WORKDIR /home/app
