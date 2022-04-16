@@ -18,9 +18,6 @@ RUN npm run build
 #
 FROM node:16.14-alpine
 
-
-RUN mkdir /home/app && mkdir /usr/local/lib/node_modules  
-
 WORKDIR /home/app
 
 RUN chown -R node:node /home/app  /usr/local/lib/node_modules
