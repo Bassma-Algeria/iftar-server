@@ -1,7 +1,7 @@
 # Build Stage 1
 # This build created a staging docker image
 #
-FROM node:16.14-alpine AS appBuild
+FROM node:18.13-alpine AS stagingBuild
 
 WORKDIR /home/app
 
@@ -16,7 +16,7 @@ RUN npm run build
 # Build Stage 2
 # This build takes the production build from staging build
 #
-FROM node:16.14-alpine
+FROM node:18.13-alpine as prodBuild
 
 RUN apk add --no-cache libcap
 
@@ -24,12 +24,12 @@ WORKDIR /home/app
 
 COPY package.json ./
 
-RUN npm install --only=production
+RUN npm install --omit=dev
 RUN npm install -g pm2
 
-COPY --from=appBuild /home/app/build .
+COPY --from=stagingBuild /home/app/build .
 
-ENV PORT=80 NODE_ENV=PROD
+ENV PORT=80 NODE_ENV=production
 
 # Set the privileges for our built app executable to run on privileged ports
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/node

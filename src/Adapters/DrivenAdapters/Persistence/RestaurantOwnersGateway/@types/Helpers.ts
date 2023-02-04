@@ -1,3 +1,3 @@
-import { IRestaurantOwner } from "../../../../../Domain/RestaurantOwner/RestaurantOwnerFactory";
+import { IRestaurantOwner } from '../../../../../Domain/RestaurantOwner/RestaurantOwnerFactory';
 
-export type OwnerInfo = ReturnType<IRestaurantOwner["info"]>;
+export type OwnerInfo = ReturnType<IRestaurantOwner['info']>;

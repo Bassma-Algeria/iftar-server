@@ -1,3 +1,3 @@
-import { startApp } from "./Adapters/DriverAdapters/REST";
+import { startApp } from './Adapters/DriverAdapters/REST';
 
 startApp();

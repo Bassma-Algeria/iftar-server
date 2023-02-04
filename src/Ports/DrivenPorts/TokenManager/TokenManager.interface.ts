@@ -1,4 +1,4 @@
 export interface ITokenManager {
-  generateToken(key: string): string;
-  decode(token: string): string;
+    generateToken(key: string): string;
+    decode(token: string): string;
 }

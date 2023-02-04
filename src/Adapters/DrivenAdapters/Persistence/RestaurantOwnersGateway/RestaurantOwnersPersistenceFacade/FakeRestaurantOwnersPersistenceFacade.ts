@@ -1,47 +1,47 @@
-import { NonFunctionProperties } from "../../../../../@types/helperTypes";
-import { IRestaurantOwner } from "../../../../../Domain/RestaurantOwner/RestaurantOwnerFactory";
-import { OwnerInfo } from "../@types/Helpers";
+import { NonFunctionProperties } from '../../../../../@types/helperTypes';
+import { IRestaurantOwner } from '../../../../../Domain/RestaurantOwner/RestaurantOwnerFactory';
+import { OwnerInfo } from '../@types/Helpers';
 
-import { IRestaurantOwnersPersistenceFacade } from "../RestaurantOwnerGateway";
+import { IRestaurantOwnersPersistenceFacade } from '../RestaurantOwnerGateway';
 
 class FakeRestaurantOwnersPersistenceFacade implements IRestaurantOwnersPersistenceFacade {
-  private store = new Map<string, OwnerInfo>();
+    private store = new Map<string, OwnerInfo>();
 
-  async getById(id: string) {
-    const owner = this.store.get(id);
-    if (!owner) return undefined;
+    async getById(id: string) {
+        const owner = this.store.get(id);
+        if (!owner) return undefined;
 
-    return owner;
-  }
+        return owner;
+    }
 
-  async save(ownerInfo: OwnerInfo) {
-    this.store.set(ownerInfo.ownerId, ownerInfo);
-    return ownerInfo;
-  }
+    async save(ownerInfo: OwnerInfo) {
+        this.store.set(ownerInfo.ownerId, ownerInfo);
+        return ownerInfo;
+    }
 
-  async getByEmail(email: string) {
-    let targetOwner: OwnerInfo | undefined;
+    async getByEmail(email: string) {
+        let targetOwner: OwnerInfo | undefined;
 
-    this.store.forEach((ownerInfo) => {
-      if (ownerInfo.email === email) targetOwner = ownerInfo;
-    });
+        this.store.forEach(ownerInfo => {
+            if (ownerInfo.email === email) targetOwner = ownerInfo;
+        });
 
-    return targetOwner;
-  }
+        return targetOwner;
+    }
 
-  async getByPhone(phone: string) {
-    let targetOwner: OwnerInfo | undefined;
+    async getByPhone(phone: string) {
+        let targetOwner: OwnerInfo | undefined;
 
-    this.store.forEach((ownerInfo) => {
-      if (ownerInfo.phoneNumber === phone) targetOwner = ownerInfo;
-    });
+        this.store.forEach(ownerInfo => {
+            if (ownerInfo.phoneNumber === phone) targetOwner = ownerInfo;
+        });
 
-    return targetOwner;
-  }
+        return targetOwner;
+    }
 
-  async deleteAll() {
-    this.store.clear();
-  }
+    async deleteAll() {
+        this.store.clear();
+    }
 }
 
 export { FakeRestaurantOwnersPersistenceFacade };

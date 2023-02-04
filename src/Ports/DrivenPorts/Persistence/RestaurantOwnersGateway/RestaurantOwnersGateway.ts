@@ -1,23 +1,23 @@
-import type { IRestaurantOwnersGateway } from "./RestaurantOwnersGateway.interface";
+import type { IRestaurantOwnersGateway } from './RestaurantOwnersGateway.interface';
 
-import { FakeRestaurantOwnersPersistenceFacade } from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnersPersistenceFacade/FakeRestaurantOwnersPersistenceFacade";
-import { MongoRestaurantOwnersPersistenceFacade } from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnersPersistenceFacade/MongoRestaurantOwnersPersistenceFacade";
+import { FakeRestaurantOwnersPersistenceFacade } from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnersPersistenceFacade/FakeRestaurantOwnersPersistenceFacade';
+import { MongoRestaurantOwnersPersistenceFacade } from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnersPersistenceFacade/MongoRestaurantOwnersPersistenceFacade';
 
 import {
-  IRestaurantOwnersPersistenceFacade,
-  RestaurantOwnersGateway,
-} from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnerGateway";
+    IRestaurantOwnersPersistenceFacade,
+    RestaurantOwnersGateway,
+} from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantOwnersGateway/RestaurantOwnerGateway';
 
 let ownersPersistence: IRestaurantOwnersPersistenceFacade;
 
-if (process.env.NODE_ENV === "TEST") {
-  ownersPersistence = new FakeRestaurantOwnersPersistenceFacade();
+if (process.env.NODE_ENV === 'test') {
+    ownersPersistence = new FakeRestaurantOwnersPersistenceFacade();
 } else {
-  ownersPersistence = new MongoRestaurantOwnersPersistenceFacade();
+    ownersPersistence = new MongoRestaurantOwnersPersistenceFacade();
 }
 
 const restaurantOwnersGateway: IRestaurantOwnersGateway = new RestaurantOwnersGateway(
-  ownersPersistence
+    ownersPersistence,
 );
 
 export { restaurantOwnersGateway, ownersPersistence };
