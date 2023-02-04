@@ -3,7 +3,7 @@ version: '3'
 services:
     backend:
         build:
-            context: ../../.github
+            context: ../..
             dockerfile: docker/dev/Dockerfile.dev
         image: iftar-backend:dev
         container_name: iftar-backend-dev
