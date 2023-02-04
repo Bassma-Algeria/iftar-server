@@ -30,7 +30,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Setup Test environment
-              run: docker-compose -f docker/test/docker-compose.test.yml up -d
+              run: npm run docker:test -- -d
             - name: Setup Node
               uses: actions/setup-node@v3
               with:
