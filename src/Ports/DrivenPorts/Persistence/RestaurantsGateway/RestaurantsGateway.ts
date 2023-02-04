@@ -1,18 +1,18 @@
 import {
-  IRestaurantsPersistanceFacade,
-  RestaurantsGateway,
-} from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsGateway";
-import { FakeRestaurantPersistenceFacade } from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsPersistenceFacade/FakeRestaurantsPersistanceFacade";
-import { MongoRestaurantsPersistenceFacade } from "../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsPersistenceFacade/MongoRestaurantsPersistenceFacade";
+    IRestaurantsPersistanceFacade,
+    RestaurantsGateway,
+} from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsGateway';
+import { FakeRestaurantPersistenceFacade } from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsPersistenceFacade/FakeRestaurantsPersistanceFacade';
+import { MongoRestaurantsPersistenceFacade } from '../../../../Adapters/DrivenAdapters/Persistence/RestaurantsGateway/RestaurantsPersistenceFacade/MongoRestaurantsPersistenceFacade';
 
-import { IRestaurantsGateway } from "./RestaurantsGateway.interface";
+import { IRestaurantsGateway } from './RestaurantsGateway.interface';
 
 let restaurantsPersistence: IRestaurantsPersistanceFacade;
 
-if (process.env.NODE_ENV === "TEST") {
-  restaurantsPersistence = new FakeRestaurantPersistenceFacade();
+if (process.env.NODE_ENV === 'test') {
+    restaurantsPersistence = new FakeRestaurantPersistenceFacade();
 } else {
-  restaurantsPersistence = new MongoRestaurantsPersistenceFacade();
+    restaurantsPersistence = new MongoRestaurantsPersistenceFacade();
 }
 
 const restaurantsGateway: IRestaurantsGateway = new RestaurantsGateway(restaurantsPersistence);

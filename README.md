@@ -1,11 +1,7 @@
 # Iftar App Server
 
-### Use Cases :
-##### Authentication
-	- Register new restaurant.
-	- Login to a restaurant.
-	- email confirmation (not sure)
-	- forget password
-	
-##### Restaurants
-	- search for restaurants.
+This is the server for the Iftar App. It is a simple Node.js server that uses Typescript, Express and MongoDB.
+
+## Getting Started
+
+### Prerequisites

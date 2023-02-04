@@ -1,7 +1,0 @@
-.git
-.gitignore
-.github
-node_modules
-build
-README.md
-.env

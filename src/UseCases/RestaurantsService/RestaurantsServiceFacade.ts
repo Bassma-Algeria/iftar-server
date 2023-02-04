@@ -1,80 +1,68 @@
-import type { ICloudGateway } from "../../Ports/DrivenPorts/CloudGateway/CloudGateway.interface";
-import type { IRestaurantOwnersGateway } from "../../Ports/DrivenPorts/Persistence/RestaurantOwnersGateway/RestaurantOwnersGateway.interface";
-import type { IRestaurantsGateway } from "../../Ports/DrivenPorts/Persistence/RestaurantsGateway/RestaurantsGateway.interface";
-import type { ITokenManager } from "../../Ports/DrivenPorts/TokenManager/TokenManager.interface";
+import type { ICloudGateway } from '../../Ports/DrivenPorts/CloudGateway/CloudGateway.interface';
+import type { ITokenManager } from '../../Ports/DrivenPorts/TokenManager/TokenManager.interface';
+import type { IRestaurantsGateway } from '../../Ports/DrivenPorts/Persistence/RestaurantsGateway/RestaurantsGateway.interface';
+import type { IRestaurantOwnersGateway } from '../../Ports/DrivenPorts/Persistence/RestaurantOwnersGateway/RestaurantOwnersGateway.interface';
 
-import { AddRestaurantFactory } from "./AddRestaurant/AddRestaurantFactory";
-import type { RegisterRestaurantArgs } from "./AddRestaurant/AddRestaurantFactory.types";
+import { AddRestaurantUseCase } from './UseCases/AddRestaurant/AddRestaurantUseCase';
+import type { RegisterRestaurantArgs } from './UseCases/AddRestaurant/AddRestaurantUseCase.types';
 
-import { EditRestaurentsFactory } from "./EditRestaurant/EditRestaurantFactory";
-import type { UpdateArgs } from "./EditRestaurant/EditRestaurantFactory.types";
+import { EditRestaurantsUseCase } from './UseCases/EditRestaurant/EditRestaurantUseCase';
+import type { UpdateArgs } from './UseCases/EditRestaurant/EditRestaurantUseCase.types';
 
-import { GetRestaurentsFactory } from "./GetRestaurantsFactory";
-import { SearchForRestaurantFactory } from "./SearchForRestaurantFactory";
+import { GetRestaurantsUseCase } from './UseCases/GetRestaurantsUseCase';
+import { SearchForRestaurantsUseCase } from './UseCases/SearchForRestaurantsUseCase';
 
 class RestaurantsServiceFacade {
-  constructor(
-    private readonly restaurantsGateway: IRestaurantsGateway,
-    private readonly ownersGateway: IRestaurantOwnersGateway,
-    private readonly tokenManager: ITokenManager,
-    private readonly cloudGateway: ICloudGateway
-  ) {}
+    constructor(
+        private readonly restaurantsGateway: IRestaurantsGateway,
+        private readonly ownersGateway: IRestaurantOwnersGateway,
+        private readonly tokenManager: ITokenManager,
+        private readonly cloudGateway: ICloudGateway,
+    ) {}
 
-  async getRestaurantById(id: string) {
-    const getRestaurantFactory = new GetRestaurentsFactory(
-      this.restaurantsGateway,
-      this.ownersGateway,
-      this.tokenManager
-    );
+    async getRestaurantById(id: string) {
+        return new GetRestaurantsUseCase(
+            this.restaurantsGateway,
+            this.ownersGateway,
+            this.tokenManager,
+        ).getById(id);
+    }
 
-    return getRestaurantFactory.getById(id);
-  }
+    async getAllRestaurants() {
+        return new GetRestaurantsUseCase(
+            this.restaurantsGateway,
+            this.ownersGateway,
+            this.tokenManager,
+        ).getAll();
+    }
 
-  async getAllRestaurants() {
-    const getRestaurantFactory = new GetRestaurentsFactory(
-      this.restaurantsGateway,
-      this.ownersGateway,
-      this.tokenManager
-    );
+    async getRestaurantsOfAuthOwner(authToken: string) {
+        return new GetRestaurantsUseCase(
+            this.restaurantsGateway,
+            this.ownersGateway,
+            this.tokenManager,
+        ).getRestaurantsOfAuthOwner(authToken);
+    }
 
-    return getRestaurantFactory.getAll();
-  }
+    async searchFor(keyword: string) {
+        return new SearchForRestaurantsUseCase(this.restaurantsGateway).searchFor(keyword);
+    }
 
-  async getRestaurantsOfAuthOwner(authToken: string) {
-    const getRestaurantFactory = new GetRestaurentsFactory(
-      this.restaurantsGateway,
-      this.ownersGateway,
-      this.tokenManager
-    );
+    async registerRestaurant(registrationArgs: RegisterRestaurantArgs) {
+        return new AddRestaurantUseCase(
+            this.tokenManager,
+            this.restaurantsGateway,
+            this.cloudGateway,
+        ).add(registrationArgs);
+    }
 
-    return getRestaurantFactory.getRestaurantsOfAuthOwner(authToken);
-  }
-
-  async searchFor(keyword: string) {
-    const searchForRestaurantFactory = new SearchForRestaurantFactory(this.restaurantsGateway);
-
-    return searchForRestaurantFactory.searchFor(keyword);
-  }
-
-  async registerRestaurant(registrationArgs: RegisterRestaurantArgs) {
-    const addRestaurantFactory = new AddRestaurantFactory(
-      this.tokenManager,
-      this.restaurantsGateway,
-      this.cloudGateway
-    );
-
-    return addRestaurantFactory.add(registrationArgs);
-  }
-
-  async updateRestaurant(updateArgs: UpdateArgs) {
-    const editRestaurantFactory = new EditRestaurentsFactory(
-      this.restaurantsGateway,
-      this.cloudGateway,
-      this.tokenManager
-    );
-
-    return editRestaurantFactory.update(updateArgs);
-  }
+    async updateRestaurant(updateArgs: UpdateArgs) {
+        return new EditRestaurantsUseCase(
+            this.restaurantsGateway,
+            this.cloudGateway,
+            this.tokenManager,
+        ).update(updateArgs);
+    }
 }
 
 export { RestaurantsServiceFacade };
