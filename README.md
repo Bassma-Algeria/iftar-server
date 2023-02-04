@@ -1,6 +1,6 @@
 # Iftar App Server
 
-This is the server for the Iftar App. It is a simple Node.js server that uses Typescript, Express and MongoDB.
+This is the official repository for [iftar app](link to the app) backend server, which is a react native app that helps you find the nearest al-rahma restaurant to break your fasting during ramadan
 
 ## Getting Started
 
