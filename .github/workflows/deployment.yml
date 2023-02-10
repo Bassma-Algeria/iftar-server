@@ -26,7 +26,8 @@ jobs:
               uses: digitalocean/action-doctl@v2
               with:
                 token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-            
+            - name: Login to Degital occean Container Registry
+              run: doctl registry login 
             - name: Deploy docker image to DigitalOcean
               run: > 
                 doctl compute droplet create 
