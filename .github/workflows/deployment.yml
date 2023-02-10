@@ -10,6 +10,8 @@ jobs:
         name: Pull the latest image version and deploy it
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v1
             - name: Login to Docker Hub
@@ -19,4 +21,18 @@ jobs:
                   password: ${{ secrets.DOCKER_PASSWORD }}
             - name: Pull The latest image version From Docker Hub
               run: docker pull ${{ secrets.DOCKER_USERNAME }}/iftar-backend:latest
-        #   - name: Deploy to ###
+        
+            - name: Install doctl
+              uses: digitalocean/action-doctl@v2
+              with:
+                token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+            
+            - name: Deploy docker image to DigitalOcean
+              run: > 
+                doctl
+                --image ${{ secrets.DOCKER_USERNAME }}/iftar-backend:latest
+                --size s-1vcpu-1gb
+                --env JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+                --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}
+                --env CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }}
+                --name iftar-backend
