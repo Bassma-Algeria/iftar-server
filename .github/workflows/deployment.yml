@@ -28,12 +28,7 @@ jobs:
                 token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
             - name: Login to Degital occean Container Registry
               run: doctl registry login 
-            - name: Deploy docker image to DigitalOcean
-              run: > 
-                doctl compute droplet create 
-                --image ${{ secrets.DOCKER_USERNAME }}/iftar-backend:latest
-                --size s-1vcpu-1gb
-                --env JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-                --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}
-                --env CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }}
-                --name iftar-backend
+            - name: Tag the docker image to the degital occean regitery
+              run: docker tag ${{ secrets.DOCKER_USERNAME }}/iftar-backend:latest registry.digitalocean.com/iftar/iftar-backend:latest
+            - name: Push image to degital occean registery
+              run: docker push registry.digitalocean.com/iftar/iftar-backend:latest
